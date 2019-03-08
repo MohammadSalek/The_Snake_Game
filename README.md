@@ -12,7 +12,7 @@ No installation required. You can either download and run the jar file from
 
 Linux: make sure to make the jar file executable (```chmod +x file.jar```)
 
-## ScreenShots:
+## Screenshot:
 
 ![Snake1](https://github.com/MohammadSalek/Snake_Game/blob/master/screenshot/snake1.png)
 
