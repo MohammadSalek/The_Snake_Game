@@ -13,17 +13,22 @@ public class Tile extends StackPane {
 
     Random random = new Random();
     private static final Color NORMAL_COLOR1 = Color.rgb(241, 194, 125);
-    private static final Color NORMAL_COLOR2 = Color.rgb(181, 158, 129);
+    private static final Color NORMAL_COLOR2 = Color.rgb(204, 177, 142);
     private static final Color NORMAL_COLOR3 = Color.rgb(255, 219, 172);
+    private static final Color NORMAL_COLOR4 = Color.rgb(245, 235, 200);
+    private static final Color NORMAL_COLOR5 = Color.rgb(252, 250, 238);
+
     List<Color> normalColors = Arrays.asList(
             NORMAL_COLOR1,
             NORMAL_COLOR2,
-            NORMAL_COLOR3
+            NORMAL_COLOR3,
+            NORMAL_COLOR4,
+            NORMAL_COLOR5
     );
     private static final Color SNAKE_BODY_COLOR = Color.rgb(37, 160, 50);
     private static final Color SNAKE_HEAD_COLOR = Color.rgb(36, 136, 35);
     private static final Color WALL_COLOR = Color.rgb(67, 54, 41);
-    private static final Color FRUIT_COLOR = Color.rgb(238, 45, 41);
+    private static final Color FRUIT_COLOR = Color.rgb(248, 0, 35);
     private static final Color BORDER_COLOR = Color.BLACK;
     private final static double strokeWidth = 0.4;
     private Rectangle rectangle;

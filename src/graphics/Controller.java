@@ -21,15 +21,11 @@ public class Controller {
 
     @FXML private Pane gameOverPane;
 
+    @FXML private Pane pausePane;
+
     @FXML private Text scoreNum;
 
-    @FXML private ToggleGroup toggleGroup;
-
-    @FXML private RadioButton radio1;
-
-    @FXML private RadioButton radio2;
-
-    @FXML private RadioButton radio3;
+    private boolean hitResumeBtn = false;
 
     @FXML
     protected void startFunction() {
@@ -49,7 +45,6 @@ public class Controller {
         startFunction();
     }
 
-
     @FXML
     private void quitFunction() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
@@ -58,13 +53,12 @@ public class Controller {
 
     @FXML
     private void initialize() {
-        radio1.setToggleGroup(toggleGroup);
-        radio2.setToggleGroup(toggleGroup);
-        radio3.setToggleGroup(toggleGroup);
         startPane.setVisible(true);
         startPane.setDisable(false);
         gameAnchorPane.setVisible(false);
         gameAnchorPane.setDisable(true);
+        pausePane.setVisible(false);
+        pausePane.setDisable(true);
         gridPane.getChildren().addAll(Game.getGridGroup());
     }
 
@@ -72,12 +66,26 @@ public class Controller {
         gameOverPane.setDisable(false);
         gameOverPane.setVisible(true);
         scoreNum.setText(String.valueOf(Game.getScore()));
+    }
 
+    public void gamePaused() {
+        pausePane.setDisable(false);
+        pausePane.setVisible(true);
+    }
+
+    public void gameResumed() {
+        pausePane.setDisable(true);
+        pausePane.setVisible(false);
+        hitResumeBtn = false;
     }
 
     @FXML
-    private void openLink() {
+    private void hitResume() {
+        hitResumeBtn = true;
+    }
 
+    public boolean hasHitResume() {
+        return hitResumeBtn;
     }
 
 }

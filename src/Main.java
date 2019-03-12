@@ -12,8 +12,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    Controller myController;
+    private Controller myController;
     private boolean gameOverFlag = false;
+    private boolean pauseFlag = false;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -23,16 +24,21 @@ public class Main extends Application {
         myController = fxmlLoader.getController();
         Scene mainScene = new Scene(root);
         mainScene.getStylesheets().add(Main.class.getResource("graphics/stylesheet/style.css").toExternalForm());
-
         mainScene.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
-            if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) {
-                Game.setSnakeDirection(Direction.LEFT);
-            } else if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) {
-                Game.setSnakeDirection(Direction.RIGHT);
-            } else if (key.getCode() == KeyCode.UP || key.getCode() == KeyCode.W) {
-                Game.setSnakeDirection(Direction.UP);
-            } else if (key.getCode() == KeyCode.DOWN || key.getCode() == KeyCode.S) {
-                Game.setSnakeDirection(Direction.DOWN);
+
+            if (key.getCode() == KeyCode.ESCAPE) {
+                pauseFlag = !pauseFlag;
+            }
+            if (!pauseFlag) {
+                if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) {
+                    Game.setSnakeDirection(Direction.LEFT);
+                } else if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) {
+                    Game.setSnakeDirection(Direction.RIGHT);
+                } else if (key.getCode() == KeyCode.UP || key.getCode() == KeyCode.W) {
+                    Game.setSnakeDirection(Direction.UP);
+                } else if (key.getCode() == KeyCode.DOWN || key.getCode() == KeyCode.S) {
+                    Game.setSnakeDirection(Direction.DOWN);
+                }
             }
         });
 
@@ -46,14 +52,22 @@ public class Main extends Application {
                 if (currentNanoTime - lastUpdate >= 120_000_000) {
                     if (Game.isGameOver()) {
                         if (!gameOverFlag) {
-                            System.out.println("game.Game over.");
                             myController.gameIsOver();
                             gameOverFlag = true;
                         }
                     }
                     else if (Game.hasGameStarted()) {
-                        gameOverFlag = false;
-                        Game.update();
+                        if (!pauseFlag) {
+                            myController.gameResumed();
+                            gameOverFlag = false;
+                            Game.update();
+                        }
+                        else {
+                            myController.gamePaused();
+                            if (myController.hasHitResume()) {
+                                pauseFlag = false;
+                            }
+                        }
                     }
                     lastUpdate = currentNanoTime;
                 }
